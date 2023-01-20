@@ -1,0 +1,94 @@
+.Range
+	background: #0c0c0c
+	display: flex
+	flex-direction: column
+	position: relative
+	cursor: pointer
+	& > p
+		box-shadow: 0 0 0 1px white
+		border-radius: 8px
+		display: flex
+		align-items: center
+		font-size: 13px
+		margin: 0
+		padding-left: 15px
+		height: 46px
+	&__arrowDown
+		position: absolute
+		top: 20px
+		right: 18px
+		fill: orange
+
+.Range__inputs
+	border-radius: 0px 0px 8px 8px
+	justify-items: center
+	cursor: initial
+	background: #0c0c0c
+	display: grid
+	padding: 21px
+	grid-template-columns: repeat(2, minmax(min-content, 1fr))
+	gap: 32px
+	position: absolute
+	top: 100%
+	left: 0
+	right: 0
+	box-shadow: 0 0 0 1px white
+	z-index: 10
+	& > input
+		padding-left: 15px
+		border: none
+		height: 45px
+		border-radius: 8px
+	&:last-child:before
+		content: ''
+		width: 13px
+		height: 1px
+		position: absolute
+		left: 50%
+		transform: translate(-60%, 50%)
+		top: 50%
+	& > input
+		width: calc(100% - 21px)
+
+		&::placeholder
+			color: rgba(0, 0, 0, 0.3)
+
+.RangeDark
+	& > div
+		&:last-child:before
+			background: white
+		& > input
+			color: black
+			background: white
+
+.RangeLight
+	background: white
+	color: black
+	& > p
+		box-shadow: 0 0 0 1px black
+	& > div
+		background: white
+		box-shadow: 0 0 0 1px black
+		&:last-child:before
+			background: black
+		& > input
+			color: black
+			background: #efefef
+
+.Hidden
+	display: none
+
+.rotate
+	transform: rotate(180deg)
+
+.svgLight
+	filter: invert(81%) sepia(1%) saturate(1367%) hue-rotate(325deg)
+	brightness: (87%) contrast(100%)
+
+@media screen and (max-width: 1024px)
+	.Range__inputs
+		grid-template-columns: repeat(1, minmax(min-content, 1fr))
+
+@media screen and (max-width: 320px)
+	.Range__inputs
+		grid-template-columns: repeat(2, minmax(min-content, 1fr))
