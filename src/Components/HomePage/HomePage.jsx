@@ -20,7 +20,6 @@ const HomePage = ({ isDarkTheme }) => {
   const [inputChange, setInputChange] = useState("");
   const [createFrom, setCreatedFrom] = useState("");
   const [createTo, setCreatedTo] = useState("");
-  const [isLoading, setIsLoading] = useState(true)
 
   const handleAuthorName = useCallback(
     (value) => {
@@ -62,14 +61,7 @@ const HomePage = ({ isDarkTheme }) => {
     await fetch(`https://test-front.framework.team/locations`)
       .then((res) => res.json())
       .then((result) => {
-        setLocations(
-          result.map((obj) => {
-            return {
-              id: obj.id,
-              name: obj.location,
-            };
-          })
-        );
+        setLocations(result);
       });
   }
 
@@ -84,7 +76,6 @@ const HomePage = ({ isDarkTheme }) => {
       .then((res) => res.json())
       .then((result) => {
         setItems(result);
-        setIsLoading(false)
       });
   }
   useEffect(() => {
@@ -96,7 +87,6 @@ const HomePage = ({ isDarkTheme }) => {
   
    return (
     <div className={s.home}>
-      {isLoading ? <div><h2>isLoading...</h2> </div>: 
       <div className={s.container}>
         <Input
           isDarkTheme={isDarkTheme}
@@ -150,7 +140,6 @@ const HomePage = ({ isDarkTheme }) => {
           isDarkTheme={isDarkTheme}
         />
       </div>
-            }
       <Paitings Authors={authors} Locations={locations} items={items} />
       <Pagination
         isDarkTheme={isDarkTheme}
@@ -161,7 +150,6 @@ const HomePage = ({ isDarkTheme }) => {
     </div>
   );
 };
-
 HomePage.propTypes = {
   isDarkTheme: PropTypes.bool.isRequired,
 };

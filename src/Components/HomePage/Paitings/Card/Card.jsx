@@ -27,7 +27,7 @@ Card.propTypes = {
   created: PropTypes.string.isRequired,
   imageUrl: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  LocationsName: PropTypes.string.isRequired,
+  LocationsName: PropTypes.string,
   AuthorName: PropTypes.string.isRequired,
 };
 

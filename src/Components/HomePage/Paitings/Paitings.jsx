@@ -4,6 +4,14 @@ import { Card } from "./Card/Card";
 import PropTypes from "prop-types";
 
 const Paitings = ({ items, Authors, Locations }) => {
+
+  const LocationsDataWithName =  Locations.map((obj) => {
+    return {
+      id: obj.id,
+      name: obj.location,
+    };
+  })
+
   return (
     <div className={s.paitings}>
       {items.map((item) => {
@@ -11,9 +19,9 @@ const Paitings = ({ items, Authors, Locations }) => {
           (authors) => authors.id === item.authorId
         ).name;
 
-        const locationName = Locations.find(
+        const locationName = LocationsDataWithName.find(
           (location) => location.id === item.locationId
-        ).name;
+        ).location;
 
         return (
           <Card
