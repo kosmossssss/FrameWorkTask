@@ -5,13 +5,10 @@ import PropTypes from "prop-types";
 
 const Paitings = ({ items, Authors, Locations }) => {
 
-  const LocationsDataWithName =  Locations.map((obj) => {
-    return {
-      id: obj.id,
-      name: obj.location,
-    };
-  })
-
+  if(!Authors) return <h2>Loading...</h2>
+  if(!Locations) return <h2>Loading...</h2>
+  console.log(Authors)
+  console.log(Locations)
   return (
     <div className={s.paitings}>
       {items.map((item) => {
@@ -19,9 +16,9 @@ const Paitings = ({ items, Authors, Locations }) => {
           (authors) => authors.id === item.authorId
         ).name;
 
-        const locationName = LocationsDataWithName.find(
+        const locationName = Locations.find(
           (location) => location.id === item.locationId
-        ).location;
+        ).name;
 
         return (
           <Card

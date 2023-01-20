@@ -20,6 +20,8 @@ const HomePage = ({ isDarkTheme }) => {
   const [inputChange, setInputChange] = useState("");
   const [createFrom, setCreatedFrom] = useState("");
   const [createTo, setCreatedTo] = useState("");
+  const [loadingLocations, setLoadingLocations] = useState(true);
+  const [loadingAuthors, setLoadingAuthors] = useState(true);
 
   const handleAuthorName = useCallback(
     (value) => {
@@ -50,19 +52,34 @@ const HomePage = ({ isDarkTheme }) => {
   );
 
   async function getAuthors() {
+    setLoadingAuthors(true)
     await fetch(`https://test-front.framework.team/authors`)
       .then((res) => res.json())
       .then((result) => {
         setAuthors(result);
-      });
+      })
+      .then(() => {
+        setLoadingAuthors(false)
+      })
   }
 
   async function getLocations() {
+    setLoadingLocations(true)
     await fetch(`https://test-front.framework.team/locations`)
       .then((res) => res.json())
-      .then((result) => {
-        setLocations(result);
-      });
+      .then((result) =>
+        setLocations(
+          result.map((obj) => {
+            return {
+              id: obj.id,
+              name: obj.location,
+            };
+          })
+        )
+      )
+      .then(() => {
+        setLoadingLocations(false)
+      })
   }
 
   async function getItems() {
@@ -78,14 +95,14 @@ const HomePage = ({ isDarkTheme }) => {
         setItems(result);
       });
   }
+
   useEffect(() => {
     getItems();
     getLocations();
     getAuthors();
   }, [currentPage, locationId, authorId, inputChange, createFrom, createTo]);
-
-  
-   return (
+  if(loadingAuthors || loadingLocations) return <h2>Loading...</h2>
+  return (
     <div className={s.home}>
       <div className={s.container}>
         <Input
