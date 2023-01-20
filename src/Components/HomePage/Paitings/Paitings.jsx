@@ -4,9 +4,6 @@ import { Card } from "./Card/Card";
 import PropTypes from "prop-types";
 
 const Paitings = ({ items, Authors, Locations }) => {
-  if(!items) {
-    return <h2>Is Loading...</h2>
-  }
   return (
     <div className={s.paitings}>
       {items.map((item) => {

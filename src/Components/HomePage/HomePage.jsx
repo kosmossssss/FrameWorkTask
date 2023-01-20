@@ -20,6 +20,7 @@ const HomePage = ({ isDarkTheme }) => {
   const [inputChange, setInputChange] = useState("");
   const [createFrom, setCreatedFrom] = useState("");
   const [createTo, setCreatedTo] = useState("");
+  const [isLoading, setIsLoading] = useState(true)
 
   const handleAuthorName = useCallback(
     (value) => {
@@ -83,17 +84,19 @@ const HomePage = ({ isDarkTheme }) => {
       .then((res) => res.json())
       .then((result) => {
         setItems(result);
+        setIsLoading(false)
       });
   }
-
   useEffect(() => {
     getItems();
     getLocations();
     getAuthors();
   }, [currentPage, locationId, authorId, inputChange, createFrom, createTo]);
 
-  return (
+  
+   return (
     <div className={s.home}>
+      {isLoading ? <div><h2>isLoading...</h2> </div>: 
       <div className={s.container}>
         <Input
           isDarkTheme={isDarkTheme}
@@ -147,6 +150,7 @@ const HomePage = ({ isDarkTheme }) => {
           isDarkTheme={isDarkTheme}
         />
       </div>
+            }
       <Paitings Authors={authors} Locations={locations} items={items} />
       <Pagination
         isDarkTheme={isDarkTheme}
